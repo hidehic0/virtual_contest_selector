@@ -26,6 +26,52 @@ document.addEventListener("DOMContentLoaded", () => {
     return `<p class="error_message">${message}</p>`;
   }
 
+  function get_available_contests() {
+    const contest_lower = Number(contest_lower_dom.value),
+      contest_upper = Number(contest_upper_dom.value);
+    const ignore_contests = get_ignore_contests();
+
+    let res = [];
+
+    for (let i = contest_lower; i <= contest_upper; i++) {
+      if (!SKIP_CONTESTS.has(i) && !ignore_contests.has(i)) res.push(i);
+    }
+
+    return res;
+  }
+
+  function validateInput() {
+    const contest_lower_value = contest_lower_dom.value,
+      contest_upper_value = contest_upper_dom.value;
+
+    if (!contest_lower_value || !contest_upper_value) {
+      response_div.innerHTML = error_html("使うコンテストの下限と上限を設定してください。");
+      return true;
+    }
+
+    const contest_lower = Number(contest_lower_value),
+      contest_upper = Number(contest_upper_value);
+
+    if (contest_lower > contest_upper) {
+      response_div.innerHTML = error_html("使うコンテストの下限を上限より小さくしてください。");
+      return true;
+    }
+
+    if (contest_lower <= 0) {
+      response_div.innerHTML = error_html("使うコンテストの下限は1以上でないといけません。");
+      return true;
+    }
+
+    let available_contests = get_available_contests();
+
+    if (available_contests.length == 0) {
+      response_div.innerHTML = error_html("抽出可能なコンテストがありません。");
+      return true;
+    }
+    response_div.innerHTML = "";
+    return false;
+  }
+
   const fields = { contest_lower: 212, contest_upper: 450, ignore_contests: "" };
 
   for (let field in fields) {
@@ -43,38 +89,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     el.addEventListener("input", () => {
       localStorage.setItem(field, el.value);
+
+      if (validateInput()) {
+        generate_button.setAttribute("disabled", true);
+      } else {
+        generate_button.removeAttribute("disabled");
+      }
     });
   }
 
   if (generate_button) {
     generate_button.addEventListener("click", () => {
-      const contest_lower_value = contest_lower_dom.value,
-        contest_upper_value = contest_upper_dom.value;
-      const ignore_contests = get_ignore_contests();
-
-      if (!contest_lower_value || !contest_upper_value) {
-        response_div.innerHTML = error_html("使うコンテストの下限と上限を設定してください。");
-        return;
-      }
-
-      const contest_lower = Number(contest_lower_value),
-        contest_upper = Number(contest_upper_value);
-
-      if (contest_lower > contest_upper) {
-        response_div.innerHTML = error_html("使うコンテストの下限を上限より小さくしてください。");
-        return;
-      }
-
-      if (contest_lower <= 0) {
-        response_div.innerHTML = error_html("使うコンテストの下限は1以上でないといけません。");
-        return;
-      }
-
-      let available_contests = [];
-
-      for (let i = contest_lower; i <= contest_upper; i++) {
-        if (!SKIP_CONTESTS.has(i) && !ignore_contests.has(i)) available_contests.push(i);
-      }
+      let available_contests = get_available_contests();
 
       if (available_contests.length == 0) {
         response_div.innerHTML = error_html("抽出可能なコンテストがありません。");
