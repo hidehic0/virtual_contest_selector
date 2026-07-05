@@ -287,11 +287,23 @@
             <div class="range-grid">
               <label>
                 <span class="field-label">下限</span>
-                <input type="number" id="contest_lower" placeholder="Example: 212" />
+                <input
+                  type="text"
+                  id="contest_lower"
+                  placeholder="example: 212"
+                  inputmode="numeric"
+                  oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                />
               </label>
               <label>
                 <span class="field-label">上限</span>
-                <input type="number" id="contest_upper" placeholder="Example: 450" />
+                <input
+                  type="text"
+                  id="contest_upper"
+                  placeholder="example: 450"
+                  inputmode="numeric"
+                  oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                />
               </label>
             </div>
           </section>
