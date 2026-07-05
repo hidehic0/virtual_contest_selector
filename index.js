@@ -98,6 +98,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  if (validateInput()) {
+    generate_button.setAttribute("disabled", true);
+  }
+
   if (generate_button) {
     generate_button.addEventListener("click", () => {
       let available_contests = get_available_contests();
@@ -109,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const contest_id = available_contests[rand_range(0, available_contests.length)];
 
-      response_div.innerHTML = `<a href="https://atcoder.jp/contests/abc${contest_id}" target="_blank">ABC${contest_id}</a><button id="add_ignore_list_button">add to ignore list</button>`;
+      response_div.innerHTML = `<a href="https://atcoder.jp/contests/abc${contest_id}" target="_blank" rel="noreferrer"><span>ABC${contest_id}</span></a><button id="add_ignore_list_button">除外リストに追加</button>`;
       response_div
         .querySelector("#add_ignore_list_button")
         .addEventListener("click", () => add_ignore_contest(contest_id));
