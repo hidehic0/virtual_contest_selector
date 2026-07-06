@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const contest_id = available_contests[rand_range(0, available_contests.length)];
 
-      response_div.innerHTML = `<a href="https://atcoder.jp/contests/abc${String(contest_id).padStart(3, "0")}" target="_blank" rel="noreferrer"><span>ABC${String(contest_id).padStart(3, "0")}</span></a><button id="add_ignore_list_button">除外リストに追加</button>`;
+      response_div.innerHTML = `<div class="response-row"><a href="https://atcoder.jp/contests/abc${String(contest_id).padStart(3, "0")}" target="_blank" rel="noreferrer"><span>ABC${String(contest_id).padStart(3, "0")}</span></a><button id="add_ignore_list_button">除外リストに追加</button></div>`;
       response_div
         .querySelector("#add_ignore_list_button")
         .addEventListener("click", () => add_ignore_contest(contest_id));
