@@ -7,30 +7,40 @@
     <style>
       :root {
         color-scheme: light;
-        --bg: #f8f9fa;
-        --bg-accent: #f3f4f7;
-        --card: #fff;
-        --card-border: #e5e7eb;
-        --text: #22232a;
-        --muted: #7a7d85;
-        --primary: #2d3a4f;
-        --primary-hover: #1a2233;
-        --danger: #a23d3d;
-        --shadow: 0 6px 24px rgba(34, 42, 60, 0.10);
+        --bg: #f4f1eb;
+        --bg-2: #fbfaf7;
+        --panel: #fffefa;
+        --panel-strong: #ffffff;
+        --panel-border: #ded8ce;
+        --text: #25221e;
+        --muted: #746e65;
+        --muted-2: #9b9388;
+        --accent: #a67c42;
+        --accent-2: #c4a36a;
+        --accent-3: #eee3ce;
+        --danger: #a64e45;
+        --shadow: 0 24px 70px rgba(69, 57, 41, 0.1);
+        --shadow-soft: 0 8px 24px rgba(69, 57, 41, 0.055);
+        --radius-xl: 22px;
+        --radius-lg: 16px;
+        --radius-md: 12px;
       }
 
       * {
         box-sizing: border-box;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
         margin: 0;
         min-height: 100vh;
-        font-family: 'Segoe UI', 'Hiragino Sans', 'Yu Gothic UI', 'Yu Gothic', 'Meiryo', system-ui, sans-serif;
         color: var(--text);
-        background:
-          linear-gradient(160deg, var(--bg) 0%, var(--bg-accent) 100%);
-        letter-spacing: 0.01em;
+        background: linear-gradient(135deg, var(--bg) 0%, var(--bg-2) 52%, #eee9df 100%);
+        font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "YuGothic", "Meiryo", sans-serif;
+        letter-spacing: 0.025em;
       }
 
       body::before {
@@ -38,95 +48,173 @@
         position: fixed;
         inset: 0;
         pointer-events: none;
-        background-image:
-          linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-        background-size: 32px 32px;
-        opacity: 0.35;
-        mask-image: radial-gradient(circle at center, black 35%, transparent 100%);
+        background-image: radial-gradient(rgba(111, 91, 62, 0.16) 0.6px, transparent 0.6px);
+        background-size: 8px 8px;
+        opacity: 0.12;
       }
 
       main {
         position: relative;
-        max-width: 860px;
+        max-width: 1120px;
         margin: 0 auto;
-        padding: 44px 24px 56px;
+        padding: 48px 20px 64px;
       }
 
-      .shell {
-        background: var(--card);
-        border: 1px solid var(--card-border);
-        border-radius: 32px;
-        box-shadow: var(--shadow);
+      .frame {
+        position: relative;
         overflow: hidden;
-        padding-bottom: 2px;
+        border: 1px solid var(--panel-border);
+        border-radius: calc(var(--radius-xl) + 4px);
+        background: rgba(255, 254, 250, 0.92);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(8px);
+      }
+
+      .frame::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(120deg, rgba(197, 163, 106, 0.08), transparent 35%);
       }
 
       .hero {
-        padding: 36px 40px 24px;
-        background:
-          linear-gradient(135deg, rgba(45, 58, 79, 0.04), rgba(255,255,255,0)),
-          linear-gradient(180deg, rgba(255,255,255,0.92), transparent);
-        border-bottom: 1px solid var(--card-border);
+        position: relative;
+        padding: 52px 48px 38px;
+        border-bottom: 1px solid var(--panel-border);
       }
 
       .eyebrow {
-        margin: 0 0 10px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 14px;
+        padding: 8px 13px;
+        border: 1px solid var(--panel-border);
+        border-radius: 999px;
+        background: var(--panel-strong);
+        color: var(--muted);
+        font-size: 0.78rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--accent);
+        box-shadow: 0 0 0 5px rgba(166, 124, 66, 0.12);
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 12ch;
+        font-family: "Cormorant Garamond", "Baskerville", "Times New Roman", serif;
+        font-size: clamp(2.8rem, 7vw, 5.9rem);
+        line-height: 0.92;
+        letter-spacing: -0.045em;
+        font-weight: 600;
+      }
+
+      .lead {
+        max-width: 42rem;
+        margin: 16px 0 0;
+        color: var(--muted);
+        font-size: clamp(1rem, 2vw, 1.1rem);
+        line-height: 1.8;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.7fr);
+        gap: 18px;
+        align-items: end;
+        margin-top: 24px;
+      }
+
+      .stat {
+        padding: 18px 18px 16px;
+        border: 1px solid var(--panel-border);
+        border-radius: var(--radius-lg);
+        background: var(--panel-strong);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .stat-label {
+        margin: 0 0 8px;
+        color: var(--muted-2);
+        font-size: 0.8rem;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: var(--primary);
-        font-size: 0.8rem;
-        font-weight: 700;
-        opacity: 0.7;
       }
 
-      h2 {
+      .stat-value {
         margin: 0;
-        font-size: clamp(2rem, 4vw, 3.25rem);
-        line-height: 1.1;
-      }
-
-      .intro {
-        max-width: 42rem;
-        margin: 12px 0 0;
-        color: var(--muted);
+        font-size: 1.06rem;
         line-height: 1.7;
-        font-size: 1.08rem;
       }
 
       .content {
         display: grid;
-        gap: 28px;
-        padding: 36px 40px 36px;
+        gap: 18px;
+        padding: 24px 24px 30px;
       }
 
       .panel {
-        border: 1px solid var(--card-border);
-        border-radius: 20px;
-        background: rgba(255,255,255,0.97);
-        padding: 28px 24px;
-        box-shadow: 0 2px 8px rgba(34,42,60,0.03);
+        border: 1px solid var(--panel-border);
+        border-radius: var(--radius-xl);
+        background: var(--panel);
+        box-shadow: var(--shadow-soft);
+        backdrop-filter: blur(4px);
       }
 
-      h3 {
-        margin: 0 0 14px;
-        font-size: 1.05rem;
+      .panel-inner {
+        padding: 24px;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 1rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text);
+        font-family: "Cormorant Garamond", "Baskerville", "Times New Roman", serif;
+        font-size: 1.28rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        text-transform: none;
+      }
+
+      .section-note {
+        margin: 0;
+        color: var(--muted-2);
+        font-size: 0.92rem;
+        line-height: 1.5;
       }
 
       .range-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 18px;
+        gap: 16px;
       }
 
       .field-label {
         display: block;
         margin: 0 0 8px;
-        font-size: 0.82rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
         color: var(--muted);
-        font-weight: 500;
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
       }
 
       input,
@@ -138,217 +226,301 @@
       input,
       textarea {
         width: 100%;
-        border: 1px solid var(--card-border);
-        border-radius: 14px;
-        background: rgba(255,255,255,0.98);
+        border: 1px solid #d8d1c6;
+        border-radius: var(--radius-md);
+        background: #fff;
         color: var(--text);
-        padding: 13px 16px;
+        padding: 14px 16px;
         outline: none;
-        font-size: 1rem;
         transition:
-          border-color 120ms ease,
-          box-shadow 120ms ease;
+          border-color 140ms ease,
+          box-shadow 140ms ease,
+          transform 140ms ease,
+          background-color 140ms ease;
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: var(--muted-2);
       }
 
       input:focus,
       textarea:focus {
-        border-color: rgba(53, 92, 154, 0.5);
-        box-shadow: 0 0 0 2px rgba(53, 92, 154, 0.1);
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px rgba(166, 124, 66, 0.12);
+        background: #fff;
       }
 
       textarea {
-        min-height: 9rem;
+        min-height: 150px;
         resize: vertical;
-        line-height: 1.6;
+        line-height: 1.65;
+      }
+
+      .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .generate-wrap {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .generate-copy {
+        color: var(--muted-2);
+        font-size: 0.92rem;
       }
 
       button {
         border: 0;
         border-radius: 999px;
-        padding: 12px 28px;
+        padding: 13px 22px;
         cursor: pointer;
-        font-weight: 600;
-        font-size: 1rem;
-        background: linear-gradient(90deg, var(--primary) 60%, var(--primary-hover) 100%);
+        font-weight: 700;
+        letter-spacing: 0.04em;
         color: #fff;
-        box-shadow: 0 2px 8px rgba(34,42,60,0.06);
+        background: var(--text);
+        box-shadow: 0 12px 24px rgba(37, 34, 30, 0.16);
         transition:
-          background-color 120ms ease,
-          opacity 120ms ease,
-          border-color 120ms ease;
+          transform 140ms ease,
+          box-shadow 140ms ease,
+          opacity 140ms ease;
+      }
+
+      button:hover {
+        transform: translateY(-1px);
+        background: var(--accent);
+        box-shadow: 0 16px 30px rgba(166, 124, 66, 0.2);
+      }
+
+      button:active {
+        transform: translateY(0);
       }
 
       button:disabled {
         cursor: not-allowed;
-        opacity: 0.55;
-      }
-
-      #generate_button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        margin-top: 6px;
-        background: linear-gradient(90deg, var(--primary) 60%, var(--primary-hover) 100%);
-        color: #fff;
-        box-shadow: 0 2px 8px rgba(34,42,60,0.06);
-        font-weight: 600;
-        font-size: 1rem;
+        opacity: 0.45;
+        box-shadow: none;
       }
 
       #response {
         display: grid;
         gap: 12px;
-        min-height: 3.25rem;
+        min-height: 4.2rem;
         align-content: start;
       }
 
       #response:empty::before {
         content: "条件を入力して「抽出」を押すと、ここに結果が表示されます。";
-        color: var(--muted);
-        padding: 14px 16px;
+        display: block;
+        color: var(--muted-2);
+        padding: 16px 18px;
         border-radius: 16px;
-        background: rgba(255, 255, 255, 0.72);
-        border: 1px dashed rgba(34, 46, 61, 0.16);
+        border: 1px dashed #d8d1c6;
+        background: #fcfaf6;
       }
 
       .response-row {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
-        gap: 16px;
-      }
-      #response a,
-      #response button {
-        width: fit-content;
+        gap: 12px;
       }
 
       #response a {
-        display: flex;
+        display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
+        justify-content: center;
         min-width: min(100%, 18rem);
-        padding: 16px 18px;
-        border-radius: 18px;
-        text-decoration: underline;
-        color: var(--primary);
-        background: #fff;
-        border: 1px solid var(--card-border);
-        box-shadow: 0 1px 4px rgba(34,42,60,0.03);
-        font-weight: 500;
-        font-size: 1.08rem;
-        position: relative;
+        padding: 18px 20px;
+        border-radius: 20px;
+        text-decoration: none;
+        color: var(--text);
+        background: var(--accent-3);
+        border: 1px solid #d9c6a5;
+        box-shadow: 0 12px 28px rgba(166, 124, 66, 0.12);
+        font-size: 1.12rem;
+        font-weight: 800;
+        letter-spacing: 0.02em;
         transition:
-          border-color 120ms ease,
-          background-color 120ms ease,
-          color 120ms ease;
+          transform 140ms ease,
+          box-shadow 140ms ease,
+          filter 140ms ease;
       }
 
       #response a:hover {
-        border-color: var(--primary);
-        background: #f8f9fa;
-        color: var(--primary-hover);
-        text-decoration: underline;
-        box-shadow: 0 2px 8px rgba(45,58,79,0.07);
+        transform: translateY(-1px);
+        filter: saturate(1.05);
+        box-shadow: 0 16px 34px rgba(166, 124, 66, 0.18);
       }
 
-
+      #response a span {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
 
       #add_ignore_list_button {
-        justify-self: start;
-        background: linear-gradient(90deg, var(--primary) 60%, var(--primary-hover) 100%);
-        color: #fff;
-        border: 0;
-        border-radius: 999px;
-        padding: 12px 28px;
-        font-weight: 600;
-        font-size: 1rem;
-        box-shadow: 0 2px 8px rgba(34,42,60,0.06);
-        transition:
-          background-color 120ms ease,
-          opacity 120ms ease,
-          border-color 120ms ease;
+        color: var(--text);
+        background: #fff;
+        border: 1px solid #d8d1c6;
+        box-shadow: none;
+      }
+
+      #add_ignore_list_button:hover {
+        box-shadow: none;
+        background: #fff;
       }
 
       .error_message {
         margin: 0;
-        padding: 14px 16px;
+        padding: 15px 16px;
         border-radius: 16px;
-        background: rgba(158, 47, 47, 0.07);
         color: var(--danger);
-        border: 1px solid rgba(158, 47, 47, 0.13);
+        background: rgba(201, 75, 75, 0.08);
+        border: 1px solid rgba(201, 75, 75, 0.16);
+      }
+
+      .footer-hint {
+        padding: 0 24px 28px;
+        color: var(--muted-2);
+        font-size: 0.88rem;
+      }
+
+      @media (max-width: 820px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
       }
 
       @media (max-width: 640px) {
         main {
-          padding: 8px;
+          padding: 12px;
         }
 
         .hero,
-        .content {
-          padding-left: 8px;
-          padding-right: 8px;
+        .content,
+        .footer-hint {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+
+        .hero {
+          padding-top: 22px;
+        }
+
+        .panel-inner {
+          padding: 18px;
         }
 
         .range-grid {
           grid-template-columns: 1fr;
+        }
+
+        .action-row {
+          align-items: stretch;
+        }
+
+        .generate-wrap {
+          width: 100%;
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        #response a {
+          width: 100%;
         }
       }
     </style>
   </head>
   <body>
     <main>
-      <section class="shell">
+      <section class="frame">
         <header class="hero">
-          <h2>ABC Selector</h2>
-          <p class="intro">
-            ABC(AtCoder Beginner Contest)のランダムな回を抽出するツールです。 入力内容は
+          <h1>ABC Selector</h1>
+          <p class="lead">
+            ABC(AtCoder Beginner Contest)のランダムな回を抽出するツールです。</br>入力内容は
             localStorage に保存されます。
           </p>
         </header>
 
         <div class="content">
           <section class="panel">
-            <h3>対象にするコンテストの範囲</h3>
-            <div class="range-grid">
-              <label>
-                <span class="field-label">下限</span>
-                <input
-                  type="text"
-                  id="contest_lower"
-                  placeholder="example: 212"
-                  inputmode="numeric"
-                  oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                />
-              </label>
-              <label>
-                <span class="field-label">上限</span>
-                <input
-                  type="text"
-                  id="contest_upper"
-                  placeholder="example: 450"
-                  inputmode="numeric"
-                  oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                />
-              </label>
+            <div class="panel-inner">
+              <div class="section-head">
+                <div>
+                  <h2>対象にするコンテストの範囲</h2>
+                </div>
+                <p class="section-note">下限と上限を指定します。</p>
+              </div>
+
+              <div class="range-grid">
+                <label>
+                  <span class="field-label">下限</span>
+                  <input
+                    type="text"
+                    id="contest_lower"
+                    placeholder="example: 212"
+                    inputmode="numeric"
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                  />
+                </label>
+                <label>
+                  <span class="field-label">上限</span>
+                  <input
+                    type="text"
+                    id="contest_upper"
+                    placeholder="example: 450"
+                    inputmode="numeric"
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                  />
+                </label>
+              </div>
             </div>
           </section>
 
           <section class="panel">
-            <h3>抽出結果</h3>
-            <div id="response"></div>
+            <div class="panel-inner">
+              <div class="section-head">
+                <div>
+                  <h2>抽出結果</h2>
+                </div>
+                <p class="section-note"></p>
+              </div>
+              <div id="response"></div>
+            </div>
           </section>
-
-          <button id="generate_button">抽出</button>
 
           <section class="panel">
-            <h3>除外するコンテスト</h3>
-            <textarea
-              placeholder="例: ABC256"
-              id="ignore_contests"
-              style="field-sizing: content; min-height: 5em; min-width: 10em"
-            ></textarea>
+            <div class="panel-inner">
+              <div class="action-row">
+                <div class="generate-wrap">
+                  <button id="generate_button">抽出</button>
+                  <div class="generate-copy"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-inner">
+              <div class="section-head">
+                <div>
+                  <h2>除外するコンテスト</h2>
+                </div>
+                <p class="section-note"></p>
+              </div>
+              <textarea placeholder="例: ABC256" id="ignore_contests"></textarea>
+            </div>
           </section>
         </div>
+
+        <div class="footer-hint"></div>
       </section>
     </main>
 
